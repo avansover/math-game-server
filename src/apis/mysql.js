@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sqlConnection1 = void 0;
+exports.sqlQueryMaker = void 0;
 const mysql_1 = __importDefault(require("mysql"));
 const sqlConnection = mysql_1.default.createConnection({
     host: "sql7.freesqldatabase.com",
@@ -11,7 +11,7 @@ const sqlConnection = mysql_1.default.createConnection({
     password: "eV4IUrhQZH",
     database: "sql7630477"
 });
-const sqlConnection1 = () => {
+const sqlQueryMaker = () => {
     sqlConnection.connect(function (err) {
         if (err)
             throw err;
@@ -20,7 +20,12 @@ const sqlConnection1 = () => {
             if (err)
                 throw err;
             console.log("Result: " + result);
+            sqlConnection.end(function (err) {
+                if (err)
+                    throw err;
+                console.log("Connection closed.");
+            });
         });
     });
 };
-exports.sqlConnection1 = sqlConnection1;
+exports.sqlQueryMaker = sqlQueryMaker;

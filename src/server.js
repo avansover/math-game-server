@@ -19,7 +19,7 @@ app.use('/api/user', userRouter_1.default);
 //     user: "sql7630477",
 //     password: "eV4IUrhQZH"
 // });
-(0, mysql_1.sqlConnection1)();
+(0, mysql_1.sqlQueryMaker)();
 app.listen(port, () => {
     console.log(`Now listening on port ${port}`);
 });

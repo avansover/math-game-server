@@ -8,15 +8,39 @@ const sqlConnection = mysql.createConnection({
     database: "sql7630477"
 });
 
+export const sqlQueryMaker = async () => {
+    try {
+        await new Promise((resolve, reject) => {
+            sqlConnection.connect(err => {
+                if (err) {
+                    console.error('Connection error:', err);
+                    reject(err);
+                    return;
+                }
+                console.log("Connected!");
 
-export const sqlConnection1 = () => {
-    sqlConnection.connect(function (err) {
-        if (err) throw err;
-        console.log("Connected!");
+                const query = "SELECT * FROM Characters";
+                sqlConnection.query(query, (err, result) => {
+                    if (err) {
+                        console.error('Query error:', err);
+                        reject(err);
+                        return;
+                    }
+                    console.log("Result:", result);
+                    resolve(result);
+                });
 
-        sqlConnection.query("SELECT * FROM Characters", function (err, result) {
-            if (err) throw err;
-            console.log("Result: " + result);
-          });
-    });
-}
+                sqlConnection.end(err => {
+                    if (err) {
+                        console.error('Connection closure error:', err);
+                    } else {
+                        console.log("Connection closed.");
+                    }
+                });
+            });
+        });
+    } catch (error) {
+       console.log("sqlQueryMaker error");
+       console.log(error);
+    }
+};
