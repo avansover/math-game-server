@@ -1,5 +1,5 @@
 
-import mysql from 'mysql';
+import mysql from 'mysql2';
 
 const sqlConnection = mysql.createConnection({
     host: "sql7.freesqldatabase.com",
@@ -8,39 +8,32 @@ const sqlConnection = mysql.createConnection({
     database: "sql7630477"
 });
 
-export const sqlQueryMaker = async () => {
-    try {
-        await new Promise((resolve, reject) => {
-            sqlConnection.connect(err => {
-                if (err) {
-                    console.error('Connection error:', err);
-                    reject(err);
-                    return;
-                }
-                console.log("Connected!");
-
-                const query = "SELECT * FROM Characters";
-                sqlConnection.query(query, (err, result) => {
-                    if (err) {
-                        console.error('Query error:', err);
-                        reject(err);
-                        return;
-                    }
-                    console.log("Result:", result);
-                    resolve(result);
-                });
-
-                sqlConnection.end(err => {
-                    if (err) {
-                        console.error('Connection closure error:', err);
-                    } else {
-                        console.log("Connection closed.");
-                    }
-                });
-            });
+export const sqlQueryMaker = (query: string) => {
+    return new Promise((resolve, reject) => {
+      sqlConnection.connect(err => {
+        if (err) {
+          console.error('Connection error:', err);
+          reject(err);
+          return;
+        }
+        console.log('Connected!');
+  
+        sqlConnection.query(query, (err, result) => {
+          if (err) {
+            console.error('Query error:', err);
+            reject(err);
+            return;
+          }
+          resolve(result);
         });
-    } catch (error) {
-       console.log("sqlQueryMaker error");
-       console.log(error);
-    }
-};
+  
+        sqlConnection.end(err => {
+          if (err) {
+            console.error('Connection closure error:', err);
+          } else {
+            console.log('Connection closed.');
+          }
+        });
+      });
+    });
+  };
