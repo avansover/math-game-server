@@ -11,11 +11,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const router = (0, express_1.Router)();
-router.route('/').get((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    return res.send("get");
+router.route('/get-users').get((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // var resp = await testBL()
+    return res.json("get-users");
 }));
-router.route('/').post((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.route('/get-user-by-id').get((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.query);
+    return res.json("get-user-by-id");
+}));
+router.route('/add-user').post((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.body);
-    return res.send("post");
+    return res.send("add-user");
+}));
+router.route('/delete-user').delete((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.body);
+    return res.send("delete-user");
 }));
 exports.default = router;

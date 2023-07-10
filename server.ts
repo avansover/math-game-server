@@ -1,6 +1,7 @@
 import cors from 'cors';
 import express from 'express';
-import userRouter from './routers/characterRouter';
+import chararterRouter from './routers/characterRouter';
+import userRouter from './routers/userRouter';
 import bodyParser from 'body-parser';
 import { sqlQueryMaker } from './apis/mysql';
 
@@ -13,8 +14,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-app.use('/api/character', userRouter);
-
+app.use('/api/character', chararterRouter);
+app.use('/api/user', userRouter);
 
 
 app.listen(port, () => {
