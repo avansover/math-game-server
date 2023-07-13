@@ -9,10 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.testBL = void 0;
-const characterDAL_1 = require("../dataAccessLayer/characterDAL");
-const testBL = () => __awaiter(void 0, void 0, void 0, function* () {
-    var resp = yield (0, characterDAL_1.testDAL)();
+exports.testDAL = void 0;
+const mysql_1 = require("../apis/mysql");
+const testDAL = () => __awaiter(void 0, void 0, void 0, function* () {
+    let query = "SELECT * FROM Characters";
+    let resp = yield (0, mysql_1.sqlQueryMaker)(query);
     return resp;
 });
-exports.testBL = testBL;
+exports.testDAL = testDAL;

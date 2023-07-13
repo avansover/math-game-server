@@ -1,6 +1,6 @@
-import { testDAL } from "../dataAccessLayer/characterDAL"
+import { testDAL } from "../dataAccessLayer/characterDal"
 
-export const testBL = async () => {
-    var resp = await testDAL();
+export const testBl = async () => {
+    let resp = await testDAL();
     return resp;
 }

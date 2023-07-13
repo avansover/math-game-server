@@ -5,3 +5,6 @@
 
 # production
 /build
+
+#git
+/dist/.env

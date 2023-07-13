@@ -9,15 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const characterBL_1 = require("../businessLogic/characterBL");
-const router = (0, express_1.Router)();
-router.route('/').get((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var resp = yield (0, characterBL_1.testBL)();
-    return res.json(resp);
-}));
-router.route('/').post((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
-    return res.send("post");
-}));
-exports.default = router;
+exports.testBl = void 0;
+const characterDal_1 = require("../dataAccessLayer/characterDal");
+const testBl = () => __awaiter(void 0, void 0, void 0, function* () {
+    let resp = yield (0, characterDal_1.testDAL)();
+    return resp;
+});
+exports.testBl = testBl;

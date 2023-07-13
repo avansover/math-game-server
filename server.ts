@@ -3,9 +3,12 @@ import express from 'express';
 import chararterRouter from './routers/characterRouter';
 import userRouter from './routers/userRouter';
 import bodyParser from 'body-parser';
-import { sqlQueryMaker } from './apis/mysql';
+
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
+
 
 const port: number = 5000;
 

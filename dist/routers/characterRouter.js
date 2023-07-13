@@ -10,21 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
+const characterBl_1 = require("../businessLogic/characterBl");
 const router = (0, express_1.Router)();
-router.route('/get-users').get((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // var resp = await testBL()
-    return res.json("get-users");
+router.route('/').get((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let resp = yield (0, characterBl_1.testBl)();
+    return res.json(resp);
 }));
-router.route('/get-user-by-id').get((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.query);
-    return res.json("get-user-by-id");
-}));
-router.route('/add-user').post((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.route('/').post((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.body);
-    return res.send("add-user");
-}));
-router.route('/delete-user').delete((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
-    return res.send("delete-user");
+    return res.send("post");
 }));
 exports.default = router;

@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { testBL } from '../businessLogic/characterBL';
+import { testBl } from '../businessLogic/characterBl';
 
 const router = Router();
 
 router.route('/').get(async (req, res)=>{
-    var resp = await testBL()
+    let resp = await testBl()
     return res.json(resp)
 })
 
