@@ -8,16 +8,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const characterBl_1 = require("../businessLogic/characterBl");
+const characterBl_1 = __importDefault(require("../businessLogic/characterBl"));
 const router = (0, express_1.Router)();
-router.route('/').get((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let resp = yield (0, characterBl_1.testBl)();
+router.route('/get-characters').get((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let resp = yield characterBl_1.default.getCharacters();
     return res.json(resp);
 }));
-router.route('/').post((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
-    return res.send("post");
+router.route('/add-character').post((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const addCharacterRequest = req.body;
+    let resp = yield characterBl_1.default.addCharacter(addCharacterRequest);
+    return res.json(resp);
+}));
+router.route('/delete-character').delete((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { characterId } = req.query;
+        const deleteUserRequest = { characterId: Number(characterId) };
+        const resp = yield characterBl_1.default.deleteCharacter(deleteUserRequest);
+        return res.json(resp);
+    }
+    catch (error) {
+        console.log(error);
+        return res.json(error);
+    }
 }));
 exports.default = router;

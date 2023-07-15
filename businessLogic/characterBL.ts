@@ -1,6 +1,25 @@
-import { testDAL } from "../dataAccessLayer/characterDal"
+import { OkPacket } from "mysql2";
+import characterDal from "../dataAccessLayer/characterDal"
+import { CharacterCommandModel } from "../types/character/commands";
 
-export const testBl = async () => {
-    let resp = await testDAL();
-    return resp;
+const characterBl = {
+
+    getCharacters: async () => {
+        let resp = await characterDal.getCharacters();
+        return resp;
+    },
+
+    addCharacter: async (addCharacterRequest: CharacterCommandModel.AddCharacter) : Promise<OkPacket>  => {
+        let resp = await characterDal.addCharacter(addCharacterRequest);
+        return resp;
+    },
+
+    deleteCharacter: async (deleteCharacterRequest: CharacterCommandModel.DeleteCharacterById) => {
+        let resp = await characterDal.deleteCharacter(deleteCharacterRequest)
+        return resp
+    }
+
 }
+
+
+export default characterBl

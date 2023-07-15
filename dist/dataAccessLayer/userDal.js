@@ -12,18 +12,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mysql_1 = require("../apis/mysql");
 const userDal = {
     getUser: () => __awaiter(void 0, void 0, void 0, function* () {
-        let query = "SELECT * FROM user";
+        let query = "SELECT * FROM User";
         let resp = yield (0, mysql_1.sqlQueryMaker)(query);
         return resp;
     }),
     addUser: (addUserRequestModel) => __awaiter(void 0, void 0, void 0, function* () {
-        let query = 'INSERT INTO user ( user_name ) VALUES (?)';
+        let query = 'INSERT INTO User ( UserName ) VALUES (?);';
         let params = [`${addUserRequestModel.userName}`];
         let resp = yield (0, mysql_1.sqlQueryMaker)(query, params);
         return resp;
     }),
     deleteUser: (deleteUserRequest) => __awaiter(void 0, void 0, void 0, function* () {
-        let query = "DELETE FROM user WHERE id = ?";
+        let query = 'DELETE FROM User WHERE Id = ?;';
         let params = [deleteUserRequest.userId];
         let resp = yield (0, mysql_1.sqlQueryMaker)(query, params);
         return resp;

@@ -9,11 +9,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.testDAL = void 0;
 const mysql_1 = require("../apis/mysql");
-const testDAL = () => __awaiter(void 0, void 0, void 0, function* () {
-    let query = "SELECT * FROM Characters";
-    let resp = yield (0, mysql_1.sqlQueryMaker)(query);
-    return resp;
-});
-exports.testDAL = testDAL;
+const characterDal = {
+    getCharacters: () => __awaiter(void 0, void 0, void 0, function* () {
+        let query = "SELECT * FROM `Character`";
+        let resp = yield (0, mysql_1.sqlQueryMaker)(query);
+        return resp;
+    }),
+    addCharacter: (addCharacterRequest) => __awaiter(void 0, void 0, void 0, function* () {
+        const query = `
+         INSERT INTO \`Character\` (Name, ClassId)
+         VALUES (?, ?);
+        `;
+        let params = [addCharacterRequest.name, addCharacterRequest.classId];
+        let resp = yield (0, mysql_1.sqlQueryMaker)(query, params);
+        console.log(resp);
+        return resp;
+    }),
+    deleteCharacter: (deleteCharacterRequest) => __awaiter(void 0, void 0, void 0, function* () {
+        let query = 'DELETE FROM `Character` WHERE Id = ?;';
+        let params = [deleteCharacterRequest.characterId];
+        let resp = yield (0, mysql_1.sqlQueryMaker)(query, params);
+        return resp;
+    })
+};
+exports.default = characterDal;

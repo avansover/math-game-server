@@ -24,8 +24,8 @@ router.route('/get-user-by-id').get((req, res) => __awaiter(void 0, void 0, void
 }));
 router.route('/add-user').post((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let addUserRequest = req.body;
-        let resp = yield userBl_1.default.addUser(addUserRequest);
+        const addUserRequest = req.body;
+        const resp = yield userBl_1.default.addUser(addUserRequest);
         return res.send(resp);
     }
     catch (error) {
@@ -33,9 +33,16 @@ router.route('/add-user').post((req, res) => __awaiter(void 0, void 0, void 0, f
     }
 }));
 router.route('/delete-user').delete((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userId } = req.query;
-    const deleteUserRequest = { userId: Number(userId) };
-    const resp = yield userBl_1.default.deleteUser(deleteUserRequest);
-    return res.send(resp);
+    try {
+        const { userId } = req.query;
+        //const test: UserCommandModel.DeleteUserById = req.query;
+        const deleteUserRequest = { userId: Number(userId) };
+        const resp = yield userBl_1.default.deleteUser(deleteUserRequest);
+        return res.json(resp);
+    }
+    catch (error) {
+        console.log(error);
+        return res.json(error);
+    }
 }));
 exports.default = router;

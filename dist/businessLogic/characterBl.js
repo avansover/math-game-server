@@ -8,11 +8,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.testBl = void 0;
-const characterDal_1 = require("../dataAccessLayer/characterDal");
-const testBl = () => __awaiter(void 0, void 0, void 0, function* () {
-    let resp = yield (0, characterDal_1.testDAL)();
-    return resp;
-});
-exports.testBl = testBl;
+const characterDal_1 = __importDefault(require("../dataAccessLayer/characterDal"));
+const characterBl = {
+    getCharacters: () => __awaiter(void 0, void 0, void 0, function* () {
+        let resp = yield characterDal_1.default.getCharacters();
+        return resp;
+    }),
+    addCharacter: (addCharacterRequest) => __awaiter(void 0, void 0, void 0, function* () {
+        let resp = yield characterDal_1.default.addCharacter(addCharacterRequest);
+        return resp;
+    }),
+    deleteCharacter: (deleteCharacterRequest) => __awaiter(void 0, void 0, void 0, function* () {
+        let resp = yield characterDal_1.default.deleteCharacter(deleteCharacterRequest);
+        return resp;
+    })
+};
+exports.default = characterBl;

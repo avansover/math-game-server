@@ -5,7 +5,7 @@ dotenv.config();
 
 const sqlPool = mysql.createPool(process.env.DATABASE_URL);
 
-export const sqlQueryMaker = (query: string, params?: any[]) => {
+export const sqlQueryMaker = (query: string, params?: any[]) : any => {
   return new Promise((resolve, reject) => {
     sqlPool.getConnection((err, conn) => {
       if (err) {
