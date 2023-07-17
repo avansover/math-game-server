@@ -1,6 +1,7 @@
 import express, { Router } from 'express';
 import userBl from '../businessLogic/userBl';
 import { UserCommandModel } from '../types/user/commnads';
+import { UserQueryModel } from '../types/user/queries';
 
 const router = Router();
 
@@ -10,18 +11,24 @@ router.route('/get-users').get(async (req, res) => {
 })
 
 router.route('/get-user-by-id').get(async (req, res) => {
-    return res.json("get-user-by-id");
+    try {
+        const { userId } = req.query;
+        const getUserByIdRequest: UserQueryModel.GeteUserById = { userId: Number(userId)};
+        const resp = await userBl.getUsersById(getUserByIdRequest);
+        return res.json(resp);
+    } catch (error) {
+        return error;
+    }
 })
 
 router.route('/add-user').post(async (req: express.Request, res: express.Response) => {
     try {
         const addUserRequest: UserCommandModel.AddUser = req.body;
-        const resp = await userBl.addUser(addUserRequest)
-        return res.send(resp);
+        const resp = await userBl.addUser(addUserRequest);
+        return res.json(resp);
     } catch (error) {
         return error;
     }
-
 })
 
 router.route('/delete-user').delete(async (req: express.Request, res: express.Response) => {
@@ -36,6 +43,5 @@ router.route('/delete-user').delete(async (req: express.Request, res: express.Re
         return res.json(error);
     }
 })
-
 
 export default router;

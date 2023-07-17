@@ -20,7 +20,6 @@ const characterDal = {
         let resp = await sqlQueryMaker(query, params);
         console.log(resp);
         return resp;
-
     },
 
     deleteCharacter: async (deleteCharacterRequest: CharacterCommandModel.DeleteCharacterById) => {

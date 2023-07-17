@@ -12,23 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const userDal_1 = __importDefault(require("../dataAccessLayer/userDal"));
-const userBl = {
-    getUsers: () => __awaiter(void 0, void 0, void 0, function* () {
-        let resp = yield userDal_1.default.getUser();
-        return resp;
-    }),
-    getUsersById: (UserByIdRequest) => __awaiter(void 0, void 0, void 0, function* () {
-        let resp = yield userDal_1.default.getUserById(UserByIdRequest);
-        return resp;
-    }),
-    addUser: (addUserRequest) => __awaiter(void 0, void 0, void 0, function* () {
-        let resp = yield userDal_1.default.addUser(addUserRequest);
-        return resp;
-    }),
-    deleteUser: (deleteUserRequest) => __awaiter(void 0, void 0, void 0, function* () {
-        let resp = yield userDal_1.default.deleteUser(deleteUserRequest);
-        return resp;
-    })
-};
-exports.default = userBl;
+const express_1 = require("express");
+const UserCharacterBl_1 = __importDefault(require("../businessLogic/UserCharacterBl"));
+const router = (0, express_1.Router)();
+router.route('/get-all-users-characters').get((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const resp = yield UserCharacterBl_1.default.getUserCharacters();
+    return res.json(resp);
+}));
+exports.default = router;

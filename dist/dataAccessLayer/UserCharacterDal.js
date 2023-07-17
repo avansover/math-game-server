@@ -10,29 +10,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mysql_1 = require("../apis/mysql");
-const userDal = {
-    getUser: () => __awaiter(void 0, void 0, void 0, function* () {
-        let query = "SELECT * FROM User";
+const UserCharacterDal = {
+    getUserCharacters: () => __awaiter(void 0, void 0, void 0, function* () {
+        let query = "SELECT * FROM UserCharacter";
         let resp = yield (0, mysql_1.sqlQueryMaker)(query);
         return resp;
     }),
-    getUserById: (UserByIdRequest) => __awaiter(void 0, void 0, void 0, function* () {
-        let query = "SELECT * FROM User WHERE Id = ?";
-        let params = [`${UserByIdRequest.userId}`];
+    addUserCharacter: (addUserCharacter) => __awaiter(void 0, void 0, void 0, function* () {
+        const query = `
+        INSERT INTO \`UserCharacter\` ( UserId, CharacterId )
+        VALUES (?, ?);
+       `;
+        let params = [addUserCharacter.userId, addUserCharacter.characterId];
         let resp = yield (0, mysql_1.sqlQueryMaker)(query, params);
-        return resp;
-    }),
-    addUser: (addUserRequestModel) => __awaiter(void 0, void 0, void 0, function* () {
-        let query = 'INSERT INTO User ( UserName ) VALUES (?);';
-        let params = [`${addUserRequestModel.userName}`];
-        let resp = yield (0, mysql_1.sqlQueryMaker)(query, params);
-        return resp;
-    }),
-    deleteUser: (deleteUserRequest) => __awaiter(void 0, void 0, void 0, function* () {
-        let query = 'DELETE FROM User WHERE Id = ?;';
-        let params = [deleteUserRequest.userId];
-        let resp = yield (0, mysql_1.sqlQueryMaker)(query, params);
+        console.log(resp);
         return resp;
     })
 };
-exports.default = userDal;
+exports.default = UserCharacterDal;

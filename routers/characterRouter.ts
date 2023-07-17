@@ -12,9 +12,8 @@ router.route('/get-characters').get(async (req: express.Request, res: express.Re
 router.route('/add-character').post(async (req: express.Request, res: express.Response)=>{
    
     const addCharacterRequest: CharacterCommandModel.AddCharacter = req.body;
-    let resp = await characterBl.addCharacter(addCharacterRequest)
-    return res.json(resp)
-
+    let resp = await characterBl.addCharacter(addCharacterRequest);
+    return res.json(resp);;
 })
 
 router.route('/delete-character').delete(async (req: express.Request, res: express.Response) => {

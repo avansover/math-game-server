@@ -5,10 +5,10 @@ export namespace CharacterCommandModel {
     export type GeteCharacterById = CharacterByIdCommanModel
 
     export type AddCharacter = {
+        userId: Number
         name: String
         classId: Number
     }
-
 }
 
 type CharacterByIdCommanModel = {

@@ -20,13 +20,21 @@ router.route('/get-users').get((req, res) => __awaiter(void 0, void 0, void 0, f
     return res.json(resp);
 }));
 router.route('/get-user-by-id').get((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    return res.json("get-user-by-id");
+    try {
+        const { userId } = req.query;
+        const getUserByIdRequest = { userId: Number(userId) };
+        const resp = yield userBl_1.default.getUsersById(getUserByIdRequest);
+        return res.json(resp);
+    }
+    catch (error) {
+        return error;
+    }
 }));
 router.route('/add-user').post((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const addUserRequest = req.body;
         const resp = yield userBl_1.default.addUser(addUserRequest);
-        return res.send(resp);
+        return res.json(resp);
     }
     catch (error) {
         return error;

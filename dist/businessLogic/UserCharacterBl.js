@@ -12,22 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const characterDal_1 = __importDefault(require("../dataAccessLayer/characterDal"));
 const UserCharacterDal_1 = __importDefault(require("../dataAccessLayer/UserCharacterDal"));
-const characterBl = {
-    getCharacters: () => __awaiter(void 0, void 0, void 0, function* () {
-        let resp = yield characterDal_1.default.getCharacters();
+const UserCharacterBl = {
+    getUserCharacters: () => __awaiter(void 0, void 0, void 0, function* () {
+        let resp = yield UserCharacterDal_1.default.getUserCharacters();
         return resp;
     }),
-    addCharacter: (addCharacterRequest) => __awaiter(void 0, void 0, void 0, function* () {
-        const addCharacterResp = yield characterDal_1.default.addCharacter(addCharacterRequest);
-        const addUserCharacterRequest = { userId: addCharacterRequest.userId, characterId: addCharacterResp.insertId };
-        const addUserCharacterResp = yield UserCharacterDal_1.default.addUserCharacter(addUserCharacterRequest);
-        return addUserCharacterResp;
-    }),
-    deleteCharacter: (deleteCharacterRequest) => __awaiter(void 0, void 0, void 0, function* () {
-        let resp = yield characterDal_1.default.deleteCharacter(deleteCharacterRequest);
-        return resp;
-    })
 };
-exports.default = characterBl;
+exports.default = UserCharacterBl;

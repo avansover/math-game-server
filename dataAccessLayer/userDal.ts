@@ -1,11 +1,19 @@
 import { sqlQueryMaker } from "../apis/mysql";
 import { UserCommandModel } from "../types/user/commnads";
+import { UserQueryModel } from "../types/user/queries";
 
 const userDal = {
 
     getUser: async () => {
         let query = "SELECT * FROM User";
         let resp = await sqlQueryMaker(query);
+        return resp;
+    },
+
+    getUserById: async (UserByIdRequest: UserQueryModel.GeteUserById) => {
+        let query = "SELECT * FROM User WHERE Id = ?";
+        let params = [`${UserByIdRequest.userId}`]
+        let resp = await sqlQueryMaker(query, params);
         return resp;
     },
 
