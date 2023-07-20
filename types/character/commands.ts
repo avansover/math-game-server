@@ -6,7 +6,7 @@ export namespace CharacterCommandModel {
 
     export type AddCharacter = {
         userId: Number
-        name: String
+        characterName: String
         classId: Number
     }
 }

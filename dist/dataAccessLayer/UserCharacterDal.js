@@ -16,14 +16,20 @@ const UserCharacterDal = {
         let resp = yield (0, mysql_1.sqlQueryMaker)(query);
         return resp;
     }),
-    addUserCharacter: (addUserCharacter) => __awaiter(void 0, void 0, void 0, function* () {
+    addUserCharacter: (addUserCharacterRequest) => __awaiter(void 0, void 0, void 0, function* () {
         const query = `
         INSERT INTO \`UserCharacter\` ( UserId, CharacterId )
         VALUES (?, ?);
-       `;
-        let params = [addUserCharacter.userId, addUserCharacter.characterId];
+        `;
+        let params = [addUserCharacterRequest.userId, addUserCharacterRequest.characterId];
         let resp = yield (0, mysql_1.sqlQueryMaker)(query, params);
         console.log(resp);
+        return resp;
+    }),
+    deleteUserCharacter: (deleteUserCharacterRequest) => __awaiter(void 0, void 0, void 0, function* () {
+        let query = 'DELETE FROM UserCharacter WHERE Id = ?;';
+        let params = [deleteUserCharacterRequest.userCharacterId];
+        let resp = yield (0, mysql_1.sqlQueryMaker)(query, params);
         return resp;
     })
 };

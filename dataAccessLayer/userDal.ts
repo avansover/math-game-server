@@ -11,10 +11,15 @@ const userDal = {
     },
 
     getUserById: async (UserByIdRequest: UserQueryModel.GeteUserById) => {
-        let query = "SELECT * FROM User WHERE Id = ?";
+        let query = 
+        `SELECT * FROM User AS U
+        JOIN UserCharacter AS UC ON UC.UserId = U.Id
+        JOIN  \`Character\` AS C ON C.Id = UC.CharacterId
+        WHERE U.Id = ?`;
         let params = [`${UserByIdRequest.userId}`]
         let resp = await sqlQueryMaker(query, params);
         return resp;
+       
     },
 
     addUser: async (addUserRequestModel: UserCommandModel.AddUser) => {

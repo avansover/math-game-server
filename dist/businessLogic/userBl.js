@@ -19,8 +19,24 @@ const userBl = {
         return resp;
     }),
     getUsersById: (UserByIdRequest) => __awaiter(void 0, void 0, void 0, function* () {
-        let resp = yield userDal_1.default.getUserById(UserByIdRequest);
-        return resp;
+        let nestedResult = [];
+        let rawsFromDb = yield userDal_1.default.getUserById(UserByIdRequest);
+        nestedResult = rawsFromDb.reduce((acc, obj) => {
+            const user = acc.find((userObj) => userObj.userId === obj.UserId);
+            if (!user) {
+                acc.push({
+                    userId: obj.UserId,
+                    UserName: obj.UserName,
+                    Password: obj.Password,
+                    Characters: [{ CharacterId: obj.CharacterId, Name: obj.Name }]
+                });
+            }
+            else {
+                user.Characters.push({ CharacterId: obj.CharacterId, Name: obj.Name });
+            }
+            return acc;
+        }, []);
+        return nestedResult;
     }),
     addUser: (addUserRequest) => __awaiter(void 0, void 0, void 0, function* () {
         let resp = yield userDal_1.default.addUser(addUserRequest);

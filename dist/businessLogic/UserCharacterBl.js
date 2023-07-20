@@ -18,5 +18,9 @@ const UserCharacterBl = {
         let resp = yield UserCharacterDal_1.default.getUserCharacters();
         return resp;
     }),
+    deleteUserCharacter: (deleteUserCharacterRequest) => __awaiter(void 0, void 0, void 0, function* () {
+        let resp = yield UserCharacterDal_1.default.deleteUserCharacter(deleteUserCharacterRequest);
+        return resp;
+    })
 };
 exports.default = UserCharacterBl;

@@ -10,15 +10,22 @@ const UserCharacterDal = {
         return resp;
     },
 
-    addUserCharacter: async (addUserCharacter: UserCharacterCommandModel.addUserCharacter): Promise<OkPacket> => {
+    addUserCharacter: async (addUserCharacterRequest: UserCharacterCommandModel.addUserCharacter): Promise<OkPacket> => {
         const query = `
         INSERT INTO \`UserCharacter\` ( UserId, CharacterId )
         VALUES (?, ?);
-       `;
+        `;
 
-        let params = [addUserCharacter.userId, addUserCharacter.characterId];
+        let params = [addUserCharacterRequest.userId, addUserCharacterRequest.characterId];
         let resp = await sqlQueryMaker(query, params);
         console.log(resp);
+        return resp;
+    },
+
+    deleteUserCharacter:async (deleteUserCharacterRequest: UserCharacterCommandModel.DeleteUserCharacterById) => {
+        let query = 'DELETE FROM UserCharacter WHERE Id = ?;';
+        let params = [deleteUserCharacterRequest.userCharacterId];
+        let resp = await sqlQueryMaker(query, params);
         return resp;
     }
 

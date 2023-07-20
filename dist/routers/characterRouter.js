@@ -23,6 +23,7 @@ router.route('/add-character').post((req, res) => __awaiter(void 0, void 0, void
     const addCharacterRequest = req.body;
     let resp = yield characterBl_1.default.addCharacter(addCharacterRequest);
     return res.json(resp);
+    ;
 }));
 router.route('/delete-character').delete((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

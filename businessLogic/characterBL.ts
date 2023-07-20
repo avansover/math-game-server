@@ -1,4 +1,3 @@
-import { OkPacket } from "mysql2";
 import characterDal from "../dataAccessLayer/characterDal"
 import { CharacterCommandModel } from "../types/character/commands";
 import { UserCharacterCommandModel } from "../types/userCharacter/commands";
@@ -12,9 +11,16 @@ const characterBl = {
     },
 
     addCharacter: async (addCharacterRequest: CharacterCommandModel.AddCharacter) => {
+
         const addCharacterResp = await characterDal.addCharacter(addCharacterRequest);
-        const addUserCharacterRequest: UserCharacterCommandModel.addUserCharacter = { userId: addCharacterRequest.userId, characterId: addCharacterResp.insertId };
+
+        const addUserCharacterRequest: UserCharacterCommandModel.addUserCharacter = {
+            userId: addCharacterRequest.userId,
+            characterId: addCharacterResp.insertId
+        };
+
         const addUserCharacterResp = await UserCharacterDal.addUserCharacter(addUserCharacterRequest);
+
         return addUserCharacterResp;
     },
 

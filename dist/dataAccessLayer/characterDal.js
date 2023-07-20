@@ -21,7 +21,7 @@ const characterDal = {
          INSERT INTO \`Character\` (Name, ClassId)
          VALUES (?, ?);
         `;
-        let params = [addCharacterRequest.name, addCharacterRequest.classId];
+        let params = [addCharacterRequest.characterName, addCharacterRequest.classId];
         let resp = yield (0, mysql_1.sqlQueryMaker)(query, params);
         console.log(resp);
         return resp;

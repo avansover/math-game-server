@@ -16,7 +16,7 @@ const characterDal = {
          VALUES (?, ?);
         `;
 
-        let params = [addCharacterRequest.name, addCharacterRequest.classId];
+        let params = [addCharacterRequest.characterName, addCharacterRequest.classId];
         let resp = await sqlQueryMaker(query, params);
         console.log(resp);
         return resp;

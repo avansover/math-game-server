@@ -17,7 +17,10 @@ const userDal = {
         return resp;
     }),
     getUserById: (UserByIdRequest) => __awaiter(void 0, void 0, void 0, function* () {
-        let query = "SELECT * FROM User WHERE Id = ?";
+        let query = `SELECT * FROM User AS U
+        JOIN UserCharacter AS UC ON UC.UserId = U.Id
+        JOIN  \`Character\` AS C ON C.Id = UC.CharacterId
+        WHERE U.Id = ?`;
         let params = [`${UserByIdRequest.userId}`];
         let resp = yield (0, mysql_1.sqlQueryMaker)(query, params);
         return resp;

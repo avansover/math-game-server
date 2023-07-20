@@ -21,7 +21,10 @@ const characterBl = {
     }),
     addCharacter: (addCharacterRequest) => __awaiter(void 0, void 0, void 0, function* () {
         const addCharacterResp = yield characterDal_1.default.addCharacter(addCharacterRequest);
-        const addUserCharacterRequest = { userId: addCharacterRequest.userId, characterId: addCharacterResp.insertId };
+        const addUserCharacterRequest = {
+            userId: addCharacterRequest.userId,
+            characterId: addCharacterResp.insertId
+        };
         const addUserCharacterResp = yield UserCharacterDal_1.default.addUserCharacter(addUserCharacterRequest);
         return addUserCharacterResp;
     }),
