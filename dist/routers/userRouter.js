@@ -16,8 +16,13 @@ const express_1 = require("express");
 const userBl_1 = __importDefault(require("../businessLogic/userBl"));
 const router = (0, express_1.Router)();
 router.route('/get-users').get((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let resp = yield userBl_1.default.getUsers();
-    return res.json(resp);
+    try {
+        let resp = yield userBl_1.default.getUsers();
+        return res.json(resp);
+    }
+    catch (error) {
+        return res.json(error);
+    }
 }));
 router.route('/get-user-by-id').get((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

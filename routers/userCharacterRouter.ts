@@ -10,7 +10,6 @@ router.route('/get-all-users-characters').get(async (req: express.Request, res: 
 })
 
 router.route('/delete-user-character').delete(async (req: express.Request, res: express.Response) => {
-   
     try {
         const { userCharacterId } = req.query;
         const deleteUserCharacterRequest: UserCharacterCommandModel.DeleteUserCharacterById = { userCharacterId: Number(userCharacterId) };
