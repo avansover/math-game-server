@@ -8,19 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const userCharacterDal_1 = __importDefault(require("../dataAccessLayer/userCharacterDal"));
-const userCharacterBl = {
-    getUserCharacters: () => __awaiter(void 0, void 0, void 0, function* () {
-        let resp = yield userCharacterDal_1.default.getUserCharacters();
+const mysql_1 = require("../apis/mysql");
+const classDal = {
+    getClasses: () => __awaiter(void 0, void 0, void 0, function* () {
+        let query = "SELECT * FROM Class";
+        let resp = yield (0, mysql_1.sqlQueryMaker)(query);
         return resp;
     }),
-    deleteUserCharacter: (deleteUserCharacterRequest) => __awaiter(void 0, void 0, void 0, function* () {
-        let resp = yield userCharacterDal_1.default.deleteUserCharacter(deleteUserCharacterRequest);
-        return resp;
-    })
 };
-exports.default = userCharacterBl;
+exports.default = classDal;

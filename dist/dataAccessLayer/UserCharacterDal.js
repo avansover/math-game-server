@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mysql_1 = require("../apis/mysql");
-const UserCharacterDal = {
+const userCharacterDal = {
     getUserCharacters: () => __awaiter(void 0, void 0, void 0, function* () {
         let query = "SELECT * FROM UserCharacter";
         let resp = yield (0, mysql_1.sqlQueryMaker)(query);
@@ -33,4 +33,4 @@ const UserCharacterDal = {
         return resp;
     })
 };
-exports.default = UserCharacterDal;
+exports.default = userCharacterDal;

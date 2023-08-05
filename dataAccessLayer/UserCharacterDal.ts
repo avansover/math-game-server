@@ -2,7 +2,7 @@ import { OkPacket } from "mysql2";
 import { sqlQueryMaker } from "../apis/mysql";
 import { UserCharacterCommandModel } from "../types/userCharacter/commands";
 
-const UserCharacterDal = {
+const userCharacterDal = {
 
     getUserCharacters: async () => {
         let query = "SELECT * FROM UserCharacter";
@@ -31,4 +31,4 @@ const UserCharacterDal = {
 
 }
 
-export default UserCharacterDal;
+export default userCharacterDal;

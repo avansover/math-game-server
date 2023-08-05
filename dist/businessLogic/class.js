@@ -12,22 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const userCharacterBl_1 = __importDefault(require("../businessLogic/userCharacterBl"));
-const router = (0, express_1.Router)();
-router.route('/get-all-users-characters').get((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const resp = yield userCharacterBl_1.default.getUserCharacters();
-    return res.json(resp);
-}));
-router.route('/delete-user-character').delete((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { userCharacterId } = req.query;
-        const deleteUserCharacterRequest = { userCharacterId: Number(userCharacterId) };
-        const resp = yield userCharacterBl_1.default.deleteUserCharacter(deleteUserCharacterRequest);
-        return res.json(resp);
-    }
-    catch (error) {
-        return res.json(error);
-    }
-}));
-exports.default = router;
+const classDal_1 = __importDefault(require("../dataAccessLayer/classDal"));
+const classBl = {
+    getClasses: () => __awaiter(void 0, void 0, void 0, function* () {
+        let resp = yield classDal_1.default.getClasses();
+        return resp;
+    }),
+};
+exports.default = classBl;

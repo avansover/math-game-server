@@ -1,17 +1,17 @@
-import UserCharacterDal from "../dataAccessLayer/UserCharacterDal";
+import userCharacterDal from "../dataAccessLayer/userCharacterDal";
 import { UserCharacterCommandModel } from "../types/userCharacter/commands";
 
-const UserCharacterBl = {
+const userCharacterBl = {
 
     getUserCharacters:async () => {
-        let resp = await UserCharacterDal.getUserCharacters();
+        let resp = await userCharacterDal.getUserCharacters();
         return resp;
     },
 
     deleteUserCharacter:async (deleteUserCharacterRequest: UserCharacterCommandModel.DeleteUserCharacterById) => {
-        let resp = await UserCharacterDal.deleteUserCharacter(deleteUserCharacterRequest);
+        let resp = await userCharacterDal.deleteUserCharacter(deleteUserCharacterRequest);
         return resp;
     }
 }
 
-export default UserCharacterBl;
+export default userCharacterBl;
