@@ -13,11 +13,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const class_1 = __importDefault(require("../businessLogic/class"));
+const classBl_1 = __importDefault(require("../businessLogic/classBl"));
 const router = (0, express_1.Router)();
 router.route('/get-classes').get((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let resp = yield class_1.default.getClasses();
+        let resp = yield classBl_1.default.getClasses();
+        return res.json(resp);
+    }
+    catch (error) {
+        return res.json(error);
+    }
+}));
+router.route('/add-class').post((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const addClassCommand = req.body;
+        console.log(addClassCommand);
+        let resp = yield classBl_1.default.addClass(addClassCommand);
+        return res.json(resp);
+    }
+    catch (error) {
+        return res.json(error);
+    }
+}));
+router.route('/delete-class').delete((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.query;
+        const deleteClassCommand = { id: Number(id) };
+        let resp = yield classBl_1.default.deleteClass(deleteClassCommand);
         return res.json(resp);
     }
     catch (error) {

@@ -2,7 +2,7 @@ export namespace CharacterCommandModel {
 
     export type DeleteCharacterById = CharacterByIdCommanModel
   
-    export type GeteCharacterById = CharacterByIdCommanModel
+    export type GetCharacterById = CharacterByIdCommanModel
 
     export type AddCharacter = {
         userId: Number

@@ -16,5 +16,18 @@ const classDal = {
         let resp = yield (0, mysql_1.sqlQueryMaker)(query);
         return resp;
     }),
+    addClass: (addClassCommand) => __awaiter(void 0, void 0, void 0, function* () {
+        let query = 'INSERT INTO Class ( ClassName, Life ) VALUES (?, ?);';
+        let params = [addClassCommand.className, addClassCommand.life];
+        console.log(addClassCommand);
+        let resp = yield (0, mysql_1.sqlQueryMaker)(query, params);
+        return resp;
+    }),
+    deleteClass: (deleteClassCommand) => __awaiter(void 0, void 0, void 0, function* () {
+        let query = 'DELETE FROM Class WHERE Id = ?;';
+        let params = [deleteClassCommand.id];
+        let resp = yield (0, mysql_1.sqlQueryMaker)(query, params);
+        return resp;
+    })
 };
 exports.default = classDal;
