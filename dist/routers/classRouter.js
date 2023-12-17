@@ -27,7 +27,6 @@ router.route('/get-classes').get((req, res) => __awaiter(void 0, void 0, void 0,
 router.route('/add-class').post((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const addClassCommand = req.body;
-        console.log(addClassCommand);
         let resp = yield classBl_1.default.addClass(addClassCommand);
         return res.json(resp);
     }

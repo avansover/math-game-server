@@ -1,4 +1,4 @@
-import userCharacterDal from "../dataAccessLayer/userCharacterDal";
+import userCharacterDal from "../dataAccessLayer/UserCharacterDal";
 import { UserCharacterCommandModel } from "../types/userCharacter/commands";
 
 const userCharacterBl = {

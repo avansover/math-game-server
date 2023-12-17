@@ -12,14 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const userCharacterDal_1 = __importDefault(require("../dataAccessLayer/userCharacterDal"));
+const UserCharacterDal_1 = __importDefault(require("../dataAccessLayer/UserCharacterDal"));
 const userCharacterBl = {
     getUserCharacters: () => __awaiter(void 0, void 0, void 0, function* () {
-        let resp = yield userCharacterDal_1.default.getUserCharacters();
+        let resp = yield UserCharacterDal_1.default.getUserCharacters();
         return resp;
     }),
     deleteUserCharacter: (deleteUserCharacterRequest) => __awaiter(void 0, void 0, void 0, function* () {
-        let resp = yield userCharacterDal_1.default.deleteUserCharacter(deleteUserCharacterRequest);
+        let resp = yield UserCharacterDal_1.default.deleteUserCharacter(deleteUserCharacterRequest);
         return resp;
     })
 };

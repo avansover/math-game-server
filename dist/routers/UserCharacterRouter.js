@@ -13,17 +13,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const userCharacterBl_1 = __importDefault(require("../businessLogic/userCharacterBl"));
+const UserCharacterBl_1 = __importDefault(require("../businessLogic/UserCharacterBl"));
 const router = (0, express_1.Router)();
 router.route('/get-all-users-characters').get((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const resp = yield userCharacterBl_1.default.getUserCharacters();
+    const resp = yield UserCharacterBl_1.default.getUserCharacters();
     return res.json(resp);
 }));
 router.route('/delete-user-character').delete((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userCharacterId } = req.query;
         const deleteUserCharacterRequest = { userCharacterId: Number(userCharacterId) };
-        const resp = yield userCharacterBl_1.default.deleteUserCharacter(deleteUserCharacterRequest);
+        const resp = yield UserCharacterBl_1.default.deleteUserCharacter(deleteUserCharacterRequest);
         return res.json(resp);
     }
     catch (error) {

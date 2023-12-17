@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import userCharacterBl from '../businessLogic/userCharacterBl';
+import userCharacterBl from '../businessLogic/UserCharacterBl';
 import { UserCharacterCommandModel } from '../types/userCharacter/commands';
 
 const router = Router();
