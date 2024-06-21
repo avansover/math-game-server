@@ -1,14 +1,17 @@
 import express, { Router } from 'express';
-import { MongoConnection } from "../apis/mongoDb";
+import { MongoConnection, MongoQuery } from "../apis/mongoDb";
+import { Collection } from '../types/enum';
 
 const router = Router();
 
 router.route('/get_dev').get(async (req, res) => {
     try {
-        let test = await MongoConnection().finally()
+        let mongoClient  = await MongoConnection();
+        let retVal = await MongoQuery(mongoClient, Collection.Player);
 
         console.log("test get_dev");
-        console.log(test);
+        console.log(retVal);
+       
         return res.json("Ok")
     } catch (error) {
         return res.json(error)

@@ -1,7 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 import chararterRouter from './routers/characterRouter';
-import userRouter from './routers/userRouter';
+import playerRouter from './routers/playerRouter';
 import userChararterRouter from './routers/userCharacterRouter';
 import classRouter from './routers/classRouter';
 import devRouter from './routers/devRouter';
@@ -19,7 +19,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-app.use('/api/user', userRouter);
+app.use('/api/player', playerRouter);
 app.use('/api/user-character', userChararterRouter);
 app.use('/api/character', chararterRouter);
 app.use('/api/class', classRouter);
