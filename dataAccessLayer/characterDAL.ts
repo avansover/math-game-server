@@ -1,33 +1,64 @@
-import { OkPacket } from "mysql2";
-import { sqlQueryMaker } from "../apis/mysql";
+import { DeleteResult, Document, InsertOneResult, MongoClient, ObjectId } from "mongodb";
 import { CharacterCommandModel } from "../types/character/commands";
+import { PlayerCommandModel } from "../types/player/commnads";
+
+const dbName = 'MathGame';
 
 const characterDal = {
 
     getCharacters: async () => {
-        let query = "SELECT * FROM `Character`";
-        let resp = await sqlQueryMaker(query);
-        return resp;
+
     },
 
-    addCharacter: async (addCharacterRequest: CharacterCommandModel.AddCharacter) : Promise<OkPacket> => {
-        const query = `
-         INSERT INTO \`Character\` (Name, ClassId)
-         VALUES (?, ?);
-        `;
+    addCharacter: async (client: MongoClient, collectionName: string, addCharacterCommand: CharacterCommandModel.AddCharacter) : Promise<InsertOneResult<Document>> => {
 
-        let params = [addCharacterRequest.characterName, addCharacterRequest.classId];
-        let resp = await sqlQueryMaker(query, params);
-        console.log(resp);
-        return resp;
+        try {
+
+            const db = client.db(dbName);
+            const characterCollection = db.collection(collectionName);
+
+            var resp = await characterCollection.insertOne({ playerId: addCharacterCommand.playerId  ,classId: addCharacterCommand.classId, name: "character name" })
+
+            console.log('[addCharacter resp]', resp);
+
+            return resp
+
+        } catch (error) {
+
+            console.log('[addCharacter] - error');
+            console.log(error);
+            throw error;
+
+        }
     },
 
-    deleteCharacter: async (deleteCharacterRequest: CharacterCommandModel.DeleteCharacterById) => {
-        let query = 'DELETE FROM `Character` WHERE Id = ?;';
-        let params = [deleteCharacterRequest.characterId]
-        let resp = await sqlQueryMaker(query, params);
-        return resp;
+    deleteCharacter: async (client: MongoClient, collectionName: string, deletePlayerCommandModel: PlayerCommandModel.DeletePlayerById): Promise<DeleteResult> => {
+
+
+        console.log('deleteCharacter dal');
+        try {
+
+            const db = client.db(dbName);
+            const characterCollection = db.collection(collectionName);
+
+            var resp = await characterCollection.deleteMany({ playerId: new ObjectId(deletePlayerCommandModel.playerId) });
+
+            console.log('[deleteCharacter resp]', resp);
+
+            console.log(`characters for player ${deletePlayerCommandModel.playerId} were deleted`);
+
+            return resp
+
+        } catch (error) {
+
+            console.log('[addCharacter] - error');
+            console.log(error);
+            throw error;
+
+        }
     }
+
+
 }
 
 export default characterDal;

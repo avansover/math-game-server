@@ -1,26 +1,22 @@
+import { Document, MongoClient, WithId } from "mongodb";
 import { sqlQueryMaker } from "../apis/mysql";
 import { ClassCommandModel } from "../types/class/commands";
 
+const dbName = 'MathGame';
+
 const classDal = {
-    getClasses: async () => {
-        let query = "SELECT * FROM Class";
-        let resp = await sqlQueryMaker(query);
-        return resp;
-    },
 
-    addClass: async (addClassCommand: ClassCommandModel.AddClass) => {
+    getAllClasses: async (client: MongoClient, collectionName: string): Promise<WithId<Document>[]> => {
 
-        let query = 'INSERT INTO Class ( ClassName, Life ) VALUES (?, ?);';
-        let params = [addClassCommand.className, addClassCommand.life];  
-        let resp = await sqlQueryMaker(query, params);
-        return resp;
-    },
+        const db = client.db(dbName);
+        const collection = db.collection(collectionName);
 
-    deleteClass: async (deleteClassCommand: ClassCommandModel.DeleteClassById) => {
-        let query = 'DELETE FROM Class WHERE Id = ?;';
-        let params = [deleteClassCommand.id]
-        let resp = await sqlQueryMaker(query, params);
+        let resp = await collection.find({}).toArray();
+
+        console.log(resp);
+
         return resp;
+
     }
 
 

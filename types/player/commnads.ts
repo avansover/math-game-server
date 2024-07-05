@@ -4,7 +4,7 @@ export namespace PlayerCommandModel {
 
     export type DeletePlayerById = PlayerByIdCommanModel
 
-    export type GetePlayerById = PlayerByIdCommanModel
+    export type GetPlayerById = PlayerByIdCommanModel
 
     export type AddPlayer = {
         name: String
@@ -13,5 +13,5 @@ export namespace PlayerCommandModel {
 }
 
 type PlayerByIdCommanModel = {
-    userId: ObjectId
+    playerId: ObjectId
 }

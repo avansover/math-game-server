@@ -1,3 +1,5 @@
+import { ObjectId } from "mongodb"
+
 export namespace CharacterCommandModel {
 
     export type DeleteCharacterById = CharacterByIdCommanModel
@@ -5,12 +7,12 @@ export namespace CharacterCommandModel {
     export type GetCharacterById = CharacterByIdCommanModel
 
     export type AddCharacter = {
-        userId: Number
+        playerId: ObjectId
         characterName: String
-        classId: Number
+        classId: ObjectId
     }
 }
 
 type CharacterByIdCommanModel = {
-    characterId: Number
+    characterId: ObjectId
 }

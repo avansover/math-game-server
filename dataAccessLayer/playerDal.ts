@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { DeleteResult, MongoClient, ObjectId } from "mongodb";
 import { PlayerCommandModel } from "../types/player/commnads";
 
 const dbName = 'MathGame';
@@ -73,7 +73,6 @@ const playerDal = {
                 _id: '$characters._id',
                 class: '$characters.class',
                 level: '$characters.level',
-                //classLevel: '$classLevel'
                 classLevel: {
                   baseHitPoints: '$classLevel.baseHitPoints'
                 }
@@ -106,7 +105,7 @@ const playerDal = {
 
     } catch (error) {
 
-      console.log('[MongoQuery] - error');
+      console.log('[getAllPlayers] - error');
       console.log(error);
       throw error;
 
@@ -120,7 +119,7 @@ const playerDal = {
   addPlayer: async (client: MongoClient, collectionName: string, addPlayerCommandModel: PlayerCommandModel.AddPlayer) => {
 
     try {
-      
+
       const db = client.db(dbName);
       const collection = db.collection(collectionName);
 
@@ -130,13 +129,36 @@ const playerDal = {
 
     } catch (error) {
 
-      console.log('[MongoQuery] - error');
+      console.log('[addPlayer] - error');
       console.log(error);
       throw error;
 
     } finally {
 
       client.close();
+
+    }
+  },
+
+  deletePlayer: async (client: MongoClient, collectionName: string, deletePlayerCommandModel: PlayerCommandModel.DeletePlayerById): Promise<DeleteResult> => {
+
+    try {
+
+      const db = client.db(dbName);
+      const playerCollection = db.collection(collectionName);
+  
+      var resp = await playerCollection.deleteOne({ _id: new ObjectId(deletePlayerCommandModel.playerId) });
+  
+      console.log('[deletePlayer resp]', resp);
+      console.log(`player ${deletePlayerCommandModel.playerId} was deleted`);
+  
+      return resp;
+
+    } catch (error) {
+
+      console.log('[deletePlayer] - error');
+      console.log(error);
+      throw error;
 
     }
   }

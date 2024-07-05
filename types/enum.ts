@@ -1,4 +1,5 @@
 export enum Collection {
-    Player = "Player"
-
+    Player = "Player",
+    Character = "Character",
+    Class = "Class"
 }

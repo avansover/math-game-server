@@ -14,10 +14,15 @@ export const MongoConnection = async (): Promise<MongoClient> => {
         console.log('[MongoConnection] Connected successfully to database');
         return client;
 
-    } catch (error) {
+    } catch (error: any) {
 
-        console.log('[MongoConnection] - error');
-        console.log(error);
+        if (error.name === 'MongoNetworkError') {
+            console.error('[MongoConnection] - Network error:', error.message);
+        } else if (error.name === 'MongoServerSelectionError') {
+            console.error('[MongoConnection] - Server selection error:', error.message);
+        } else {
+            console.error('[MongoConnection] - General error:', error.message);
+        }
         throw error;
 
     }

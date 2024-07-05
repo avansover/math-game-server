@@ -1,7 +1,8 @@
+import { MongoConnection } from "../apis/mongoDb";
 import characterDal from "../dataAccessLayer/characterDAL"
 import { CharacterCommandModel } from "../types/character/commands";
-import { UserCharacterCommandModel } from "../types/userCharacter/commands";
-import UserCharacterDal from "../dataAccessLayer/UserCharacterDal";
+import { Collection } from "../types/enum";
+import { GeneralResponse } from "../types/generalResponse";
 
 const characterBl = {
 
@@ -12,21 +13,37 @@ const characterBl = {
 
     addCharacter: async (addCharacterRequest: CharacterCommandModel.AddCharacter) => {
 
-        const addCharacterResp = await characterDal.addCharacter(addCharacterRequest);
+        let retVal = new GeneralResponse()
+        let mongoClient = await MongoConnection();
 
-        const addUserCharacterRequest: UserCharacterCommandModel.addUserCharacter = {
-            userId: addCharacterRequest.userId,
-            characterId: addCharacterResp.insertId
-        };
+        try {
 
-        const addUserCharacterResp = await UserCharacterDal.addUserCharacter(addUserCharacterRequest);
+            let characterDeleteResult = await characterDal.addCharacter(mongoClient, Collection.Character, addCharacterRequest);
 
-        return addUserCharacterResp;
+            console.log(characterDeleteResult);
+
+
+            return retVal;
+
+        } catch (error: any) {
+
+            retVal.errors.push(error.message);
+            return retVal;
+
+        } finally {
+
+            mongoClient.close;
+
+        }
+
     },
 
     deleteCharacter: async (deleteCharacterRequest: CharacterCommandModel.DeleteCharacterById) => {
-        let resp = await characterDal.deleteCharacter(deleteCharacterRequest)
-        return resp
+
+        // let mongoClient = await MongoConnection();
+
+        // let resp = await characterDal.deleteCharacter(mongoClient, Collection.Character, deleteCharacterRequest)
+        // return resp
     }
 
 }
